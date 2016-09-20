@@ -30,7 +30,6 @@ def uniform_weight(size,scale=0.1):
 def glorot_uniform(size):
     fan_in, fan_out = size
     s = np.sqrt(6. / (fan_in + fan_out))
-    print s
     return np.random.uniform(size=size,low=-s, high=s).astype(theano.config.floatX)
 
 
@@ -38,8 +37,8 @@ class BiGRU(object):
     def __init__(self, n_in, n_hidden, n_out, activation=T.tanh,inner_activation=T.nnet.sigmoid,
                  output_type='real',batch_size=200):
 
-        self.gru_1 = GRU(n_in,n_hidden,n_out)
-        self.gru_2 = GRU(n_in,n_hidden,n_out)
+        self.gru_1 = GRU(n_in,n_hidden,n_out,batch_size=batch_size)
+        self.gru_2 = GRU(n_in,n_hidden,n_out,batch_size=batch_size)
 
         self.params = self.gru_1.params
         self.params += self.gru_2.params
