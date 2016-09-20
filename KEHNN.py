@@ -199,8 +199,7 @@ def predict_nn(datasets,
     pys = []
     labelys = []
     j = 0
-    f = open('res.txt','w')
-    n_train_batches = datasets[0].shape[0]/batch_size
+    f = open(r'D:\users\wuyu\pythoncode\SemEval2015\res.txt','w')
     for minibatch_index in xrange(datasets[2].shape[0]/batch_size):
         py,labely, tcost, terr,prob = val_model2(minibatch_index)
         cost += tcost
