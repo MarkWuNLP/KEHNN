@@ -5,7 +5,7 @@ from RNN import GRU, BiGRU, GRU_Cell
 from numpy.random import shuffle
 from sklearn.metrics import f1_score, accuracy_score
 from gensim.models.word2vec import Word2Vec
-from process_ubuntu import WordVecs
+from PreProcess import WordVecs
 from CNN import QALeNetConvPoolLayer,LeNetConvPoolLayer
 from Classifier import BilinearLR, MLP
 from Optimization import Adadelta, Adam
@@ -484,14 +484,14 @@ def make_data(revs, word_idx_map, max_l=50, filter_h=3
 
 
 if __name__=="__main__":
-    dataset = r"D:\users\wuyu\pythoncode\SemEval2015\preserve_stopc.bin"
+    dataset = r"training.bin"
     x = cPickle.load(open(dataset,"rb"))
     revs, wordvecs, max_l,tw = x[0], x[1], x[2], x[3]
     datasets = make_data(revs,wordvecs.word_idx_map,max_l=50,
                              train_instance = 16541,val_instance = 1645)
 
-    #train_nn(datasets,wordvecs.W,tw,filter_hs=[3],feature_map_per_layer=[8],batch_size=50
-    #         ,input_embedding=100,hidden_dimension = 100,pooling_size = (3,3))
+    train_nn(datasets,wordvecs.W,tw,filter_hs=[3],feature_map_per_layer=[8],batch_size=50
+             ,input_embedding=100,hidden_dimension = 100,pooling_size = [(3,3)])
 
     predict_nn(datasets,wordvecs.W,tw,filter_hs=[3],feature_map_per_layer=[8],batch_size=50
              ,input_embedding=100,hidden_dimension = 100,pooling_size = [(3,3)])
